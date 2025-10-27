@@ -1,16 +1,16 @@
 package daw.gestiongastos.controlador;
 
+// ❗ Borra los imports no usados.
 import daw.gestiongastos.entidad.Movimiento;
+import daw.gestiongastos.servicio.IMovimientoServicio;
 import daw.gestiongastos.servicio.MovimientoServicio;
+import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
@@ -18,10 +18,12 @@ import java.util.List;
 @Controller
 public class MovimientoControlador {
 
+    private static final String REDIRECT = "redirect:/";
     private static final Logger logger = LoggerFactory.getLogger(MovimientoControlador.class);
 
     @Autowired
-    private MovimientoServicio movimientoServicio;
+    //
+    private IMovimientoServicio movimientoServicio;
 
     @GetMapping("/")
     public String iniciar(ModelMap modelo){
@@ -31,7 +33,7 @@ public class MovimientoControlador {
     }
 
     @GetMapping("/agregar")
-    public String mostrarAgregar(ModelMap modelo){
+    public String mostrarAgregar(){
         return "agregar";
     }
 
@@ -39,7 +41,7 @@ public class MovimientoControlador {
     @PostMapping("/agregar")
     public String agregar(@ModelAttribute("movimientoForma") Movimiento movimiento){
         movimientoServicio.agregarMovimiento(movimiento);
-        return "redirect:/";
+        return REDIRECT;
     }
 
     @GetMapping("/editar/{id}")
@@ -52,19 +54,27 @@ public class MovimientoControlador {
 
     @PostMapping("/editar")
     public String editar(@ModelAttribute("movimiento") Movimiento movimiento){
+        // ❗No es "agregarMovimiento", es "editarMovimiento"
         movimientoServicio.agregarMovimiento(movimiento);
-        return "redirect:/";
+        return REDIRECT;
     }
 
     @GetMapping("/eliminar/{id}")
-    public String eliminar(@PathVariable(value = "id") int idMovimiento, RedirectAttributes redirectAttributes){
-
+    // @DeleteMapping es más apropiado
+    public String eliminar(
+            @PathVariable(value = "id") int idMovimiento,
+            RedirectAttributes redirectAttributes
+    ) {
+        //❗ El controlador no es responsable de esta lógica.
+        // El responsable es MovimientoApp :)
         Movimiento movimiento = new Movimiento();
         movimiento.setIdMovimiento(idMovimiento);
         movimientoServicio.eliminarMovimiento(movimiento);
+
+        //✅ 💪 Esta sí es una responsabilidad del controller.
         redirectAttributes.addFlashAttribute("msg_exito", "¡Se eliminó correctamente!");
 
-        return "redirect:/";
+        return REDIRECT;
     }
 
 

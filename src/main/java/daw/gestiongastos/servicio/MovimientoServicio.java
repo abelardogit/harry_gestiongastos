@@ -28,15 +28,11 @@ public class MovimientoServicio implements IMovimientoServicio{
 
     @Override
     public void agregarMovimiento(Movimiento movimiento) {
-
         movimientoRepositorio.save(movimiento);
-
     }
 
     @Override
     public void eliminarMovimiento(Movimiento movimiento) {
-
         movimientoRepositorio.delete(movimiento);
-
     }
 }

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragmentos/cabecero::cabecero-seccion(titulo='Sistema de Gestion de Gastos')}"/>
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <body>
 
 
@@ -38,9 +38,13 @@
             <td th:text="${movimiento.categoria}" > </td>
             <td class="text-center" >
                 <div class="container">
-                    <a th:href="@{/editar/{id}(id=${movimiento.idMovimiento})}" class="btn btn-warning btn-sm me-3">Editar</a>
-                    <a th:href="@{/eliminar/{id}(id=${movimiento.idMovimiento})}" class="btn btn-danger btn-sm me-3"
-                       onclick="confirmarEliminar(event)">Eliminar</a>
+                    <a th:href="@{/editar/{id}(id=${movimiento.idMovimiento})}" class="btn btn-warning btn-sm me-3">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                        Editar
+                    </a>
+                    <a th:href="@{/eliminar/{id}(id=${movimiento.idMovimiento})}" class="btn btn-danger btn-sm me-3">
+                        <i role="img" class="fa-solid fa-trash" onclick="confirmarEliminar()"></i>
+                        Eliminar</a>
                 </div>
             </td>
 
@@ -53,7 +57,7 @@
 
 <div th:replace="~{fragmentos/pie-pagina::pie-pagina-seccion}"/>
 
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/js/all.min.js" integrity="sha512-6BTOlkauINO65nLhXhthZMtepgJSghyimIalb+crKRPhvhmsCdnIuGcVbR5/aQY2A+260iC1OPy1oCdB6pSSwQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </body>
 
 </html>

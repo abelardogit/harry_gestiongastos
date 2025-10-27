@@ -4,7 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import lombok.Data;
+import lombok.Data; // ❗ Si no lo usas, bórralo (lo mismo para los métodos)
 
 import java.sql.Date;
 
@@ -17,7 +17,7 @@ public class Movimiento {
     Integer idMovimiento;
     double monto;
     String movimientoTipo;
-    Date fechaMovimiento;
+    Date fechaMovimiento; // Mejor LocalDateTime
     String descripcion;
     String categoria;
 
